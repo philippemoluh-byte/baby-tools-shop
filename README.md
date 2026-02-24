@@ -349,7 +349,7 @@ Verify containers are running:
 Step 1 — Create or edit the NGINX site configuration:
 
 ```bash
- sudo nano /etc/nginx/sites-available/baby-tool-word
+ sudo nano /etc/nginx/sites-available/baby-tool-shop
 ```
 
 Step 2 — Add the following server block:
@@ -374,7 +374,7 @@ server {
 Step 3 — Enable the site and reload NGINX:
 
 ```bash
- sudo ln -s /etc/nginx/sites-available/baby-tool-word /etc/nginx/sites-enabled/
+ sudo ln -s /etc/nginx/sites-available/baby-tool-shop /etc/nginx/sites-enabled/
  sudo nginx -t          # Test the configuration
  sudo systemctl reload nginx
 ```
