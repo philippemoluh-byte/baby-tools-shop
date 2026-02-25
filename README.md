@@ -268,8 +268,8 @@ To containerize the project on a virtual server, follow these steps:
 Step 1 — Clone the Repository
 
 ```bash
- git clone https://github.com/<your_github_account_name>/<your_github_repository_name>
- cd <your_github_repository_name>
+ git clone https://github.com/philippemoluh-byte/baby-tools-shop.git
+ cd baby-tools-shops
 ```
 
 Step 2 — Set up the environment file
