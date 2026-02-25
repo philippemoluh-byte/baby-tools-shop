@@ -120,12 +120,8 @@ baby-tools-shop/                               # Repository root
 ├── README.md                                  # Project documentation
 ├── example.env                                # Example environment variables
 ├── project_images/                            # Screenshots used in README
-├── my-venv/                                   # Local virtual environment
 └── babyshop_app/                              # Main Django application folder
     ├── .dockerignore                         # Files excluded from Docker build context
-    ├── .env.example                          # Base environment template
-    ├── .env.development.example              # Development environment template
-    ├── .env.production.example               # Production environment template
     ├── Dockerfile                            # Docker image build instructions
     ├── entrypoint.sh                         # Container startup script
     ├── manage.py                             # Django management entrypoint
@@ -177,7 +173,6 @@ baby-tools-shop/                               # Repository root
 | `babyshop_app/users/` | User/auth app (forms, views, routes). |
 | `babyshop_app/templates/` | Shared templates for auth and product pages. |
 | `project_images/` | README screenshots. |
-| `my-venv/` | Local virtual environment (not required in source control). |
 
 ### Apps Overview
 
