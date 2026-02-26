@@ -70,12 +70,6 @@ Edit `babyshop_app/.env.development`:
  DB_PORT=<your_db_port>
 ```
 
-Navigate to the source directory
-
-```bash
-cd babyshop_app
-```
-
 Create a virtual environment
 
 ```bash
@@ -92,10 +86,16 @@ Activate the virtual environment
  source my-venv/bin/activate
 ```
 
+Navigate to the main application folder
+
+```bash
+cd babyshop_app
+```
+
 Install the project dependencies
 
 ```bash
-pip install -r babyshop_app/requirements.txt
+pip install -r requirements.txt
 ```
 
 Prepare the database (create and apply migrations)

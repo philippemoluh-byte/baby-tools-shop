@@ -1,4 +1,4 @@
-FROM python:3.12-slim AS backend
+FROM python:3.9
 
 # Destination to copy all assets to during the build process.
 ARG _WORKDIR=/app
