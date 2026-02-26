@@ -8,7 +8,9 @@ WORKDIR ${_WORKDIR}
 # Default port for the app to start with
 ENV APP_PORT=8000
 
-# Avoid writing .pyc files and flush logs immediately in containers
+# PYTHONDONTWRITEBYTECODE=1: Prevents Python from writing .pyc (compiled bytecode) files to disk.
+# PYTHONUNBUFFERED=1: Forces Python's stdout/stderr streams 
+# to be unbuffered (output is sent directly, not held in a buffer).
 ENV PYTHONDONTWRITEBYTECODE=1 \
     PYTHONUNBUFFERED=1
 

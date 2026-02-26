@@ -31,18 +31,49 @@ Before starting, make sure your Linux server and local machine have the followin
 
 ## Quickstart
 
+### Start your app manually
+
 To quickly get started with the application, follow these steps:
 
 Clone the Git repository
 
 ```bash
-git clone https://github.com/philippemoluh-byte/baby-tools-shop.git
+git clone git@github:philippemoluh-byte/baby-tools-shop.git
 ```
 
 Navigate to the repository
 
 ```bash
 cd baby-tools-shop
+```
+
+Configure the required application environment variables
+
+```bash
+cp example.env babyshop_app/.env.development
+```
+
+Edit `babyshop_app/.env.development`:
+
+```bash
+ BTS_ENV=development
+ BTS_SECRET_KEY=change-me
+ DEBUG=True
+ ALLOWED_HOSTS=127.0.0.1,localhost
+
+ # Database settings
+ DB_ENGINE=<your_db_engine>
+ DB_NAME=<your _db_name>
+ DB_USER=<your_db_user>
+ DB_PASSWORD=<your_db_password>
+ DB_HOST=<your_db_host>
+ DB_PORT=<your_db_port>
+```
+
+Navigate to the source directory
+
+```bash
+cd babyshop_app
 ```
 
 Create a virtual environment
@@ -65,25 +96,6 @@ Install the project dependencies
 
 ```bash
 pip install -r babyshop_app/requirements.txt
-```
-
-Configure the required application environment variables
-
-```bash
-cp example.env babyshop_app/.env.development
-```
-
-Edit `babyshop_app/.env.development`:
-
-```env
-DEBUG=True
-ALLOWED_HOSTS=127.0.0.1,localhost
-```
-
-Navigate to the source directory
-
-```bash
-cd babyshop_app
 ```
 
 Prepare the database (create and apply migrations)
@@ -109,6 +121,44 @@ http://localhost:8000
 
 ```bash
 python manage.py createsuperuser
+```
+
+### Use Docker to Start Your App
+
+> [!TIP]
+> Ensure you have a `Dockerfile` and `.dockerignore` file in your project root directory.
+
+Step 1 — Build an image
+
+> [!IMPORTANT]
+> Ensure your virtual environment is created and activated before running local project commands.
+
+You can build the container image by running the following command:
+
+```bash
+  # Use -t to provide an image tag.
+  # -> baby-tools-shop is the image name, 'local' is the tag
+  docker build -t baby-tools-shop:local .
+```
+
+Step 2 — Run a container
+
+To start a container based on the image, use the following command in your terminal:
+
+```bash
+docker run --rm -it -p 8000:8000 baby-tools-shop:local
+```
+
+Verify the application is running by visiting
+
+```bash
+http://localhost:8000
+```
+
+Create a superuser by running:
+
+```bash
+ docker exec -it <your_container_id> python manage.py createsuperuser
 ```
 
 ## Project Structure
@@ -218,44 +268,6 @@ Request handling flow:
 > [!NOTE]
 > You can also run Baby Tools Shop in a Docker container.
 
-### Use Docker to Start Your App
-
-> [!TIP]
-> Ensure you have a `Dockerfile` and `.dockerignore` file in your project root directory.
-
-Step 1 — Build an image
-
-> [!IMPORTANT]
-> Ensure your virtual environment is created and activated before running local project commands.
-
-You can build the container image by running the following command:
-
-```bash
-  # Use -t to provide an image tag.
-  # -> baby-tools-shop is the image name, 'local' is the tag
-  docker build -t baby-tools-shop:local .
-```
-
-Step 2 — Run a container
-
-To start a container based on the image, use the following command in your terminal:
-
-```bash
-docker run --rm -it -p 8000:8000 baby-tools-shop:local
-```
-
-Verify the application is running by visiting
-
-```bash
-http://localhost:8000
-```
-
-Create a superuser by running:
-
-```bash
- docker exec -it <your_container_id> python manage.py createsuperuser
-```
-
 ### Configure Your Server
 
 To containerize the project on a virtual server, follow these steps:
@@ -263,7 +275,7 @@ To containerize the project on a virtual server, follow these steps:
 Step 1 — Clone the Repository
 
 ```bash
- git clone https://github.com/philippemoluh-byte/baby-tools-shop.git
+ git clone git@github:philippemoluh-byte/baby-tools-shop.git
  cd baby-tools-shops
 ```
 
@@ -285,6 +297,14 @@ Open the `.env` file in the source directory and set the required environment va
 
  # `DEBUG`: Set to True for development or False for production. Defaults to True
  DEBUG=False
+ # Database settings
+ DB_ENGINE=<your_db_engine>
+ DB_NAME=<your _db_name>
+ DB_USER=<your_db_user>
+ DB_PASSWORD=<your_db_password>
+ DB_HOST=<your_db_host>
+ DB_PORT=<your_db_port>
+
 ```
 
 ### Build and run with Docker
