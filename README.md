@@ -23,11 +23,9 @@ This guide demonstrates how to dockerize a full-stack Django application and dep
 
 Before starting, make sure your Linux server and local machine have the following installed:
 
-- Python Interpreter
-- OCI-Compliant Container Engine (Docker v20+)
-- NGINX (only on the virtual server)
+- Docker v20+
 - Git (to clone your project)
-- Network connectivity from GitHub to your virtual server and local machine
+- Network connectivity from GitHub to your virtual server and local machine using ssh keys
 
 ## Quickstart
 
@@ -73,7 +71,11 @@ Edit `babyshop_app/.env.development`:
 Create a virtual environment
 
 ```bash
-python -m venv my-venv
+ # On Windows, run:
+ py -3.9 --version 
+        
+ # On macOS/Linux, run:
+ python3.9 -m venv my-venv
 ```
 
 Activate the virtual environment
