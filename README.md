@@ -156,6 +156,11 @@ baby-tools-shop/                                  # Repository root
 ssh -i ~/.ssh/your_key <your_root_name>@<your_ip>
 ```
 
+> [!NOTE]
+>
+> The commands for steps 2 to 6 are explained in the Quickstart section.
+> These steps are listed here only to show how to configure your server.
+
 2. Clone the Git repository.
 3. Navigate to the main directory.
 4. Set up the environment file.
@@ -176,7 +181,7 @@ ssh -i ~/.ssh/your_key <your_root_name>@<your_ip>
  # See the "Edit `babyshop_app/.env`" section mentioned in Quickstart.
 ```
 
-5. Verify the application in your browser.
+5. Build an image and run docker to start your app.
 6. Verify the application is running.
 7. Create a superuser account (optional).
 
