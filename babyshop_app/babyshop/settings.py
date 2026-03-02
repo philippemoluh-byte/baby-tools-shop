@@ -30,7 +30,13 @@ SECRET_KEY = os.getenv('BTS_SECRET_KEY', 'django-insecure-dev-only-change-me')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False if os.getenv('DEBUG', 'False').lower() in ['false', '0', 'no'] else True
 
-ALLOWED_HOSTS = [host.strip() for host in os.getenv('ALLOWED_HOSTS', '127.0.0.1,localhost').split(',') if host.strip()]
+ALLOWED_HOSTS_ENV = os.getenv('ALLOWED_HOSTS')
+if ALLOWED_HOSTS_ENV is None:
+    raise ImproperlyConfigured('ALLOWED_HOSTS environment variable is required in .env')
+
+ALLOWED_HOSTS = [host.strip() for host in ALLOWED_HOSTS_ENV.split(',') if host.strip()]
+if not ALLOWED_HOSTS:
+    raise ImproperlyConfigured('ALLOWED_HOSTS must contain at least one host in .env')
 
 
 # Application definition
