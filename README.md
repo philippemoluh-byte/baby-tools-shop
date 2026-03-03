@@ -1,6 +1,6 @@
 # Baby Tools Shop
 
-This guide demonstrates how to dockerize a full-stack Django application and deploy it to a Linux-based virtual server. It covers the steps needed to set up a Django project, containerize it with a Dockerfile, and configure NGINX as a reverse proxy. Baby Tools Shop is an e-commerce sample project for baby tools. It is provided for educational purposes only and makes no claims regarding feature completeness, application security, user experience, or design.
+This guide demonstrates how start a dockerized full-stack Django application and deploy it to a server. Baby Tools Shop is an e-commerce sample project for baby tools. It is provided for educational purposes only and makes no claims regarding feature completeness, application security, user experience, or design.
 
 ## Table of Contents
 
@@ -8,9 +8,9 @@ This guide demonstrates how to dockerize a full-stack Django application and dep
 - [Quickstart](#quickstart)
   - [Start Your App Manually](#start-your-app-manually)
   - [Use Docker to Start Your App](#use-docker-to-start-your-app)
-- [Project Structure](#project-structure)
 - [Usage](#usage)
   - [Configure Your Server](#configure-your-server)
+- [Project Structure](#project-structure)
 
 ## Prerequisites
 
@@ -43,9 +43,16 @@ Configure the required application environment variables
 cp example.env babyshop_app/.env
 ```
 
-Edit `babyshop_app/.env`:
+Edit the environment variable :
 
 ```bash
+ # Navigate to the app directory
+ cd babyshop_app
+
+ # Edit the .env file 
+ nano .env
+
+ #Set the following variable
  BTS_SECRET_KEY=change-me
  DEBUG=True
  ALLOWED_HOSTS=127.0.0.1,localhost
@@ -83,6 +90,60 @@ Verify the application is running by visiting
 
 ```bash
 http://<your_ip>:8000
+```
+
+## Usage
+
+### Configure Your Server
+
+1. Log in to your server
+
+```bash
+ssh -i ~/.ssh/your_key <your_root_name>@<your_ip>
+```
+
+> [!NOTE]
+>
+> The commands for steps 2 to 6 are explained in the Quickstart section.
+> These steps are listed here only to show how to configure your server.
+
+2. Clone the Git repository.
+3. Navigate to the main directory.
+4. Set up the environment file.
+
+> [!TIP]
+>
+> The environment file should be stored next to the `manage.py` file.
+> The `DEBUG` parameter should be set to `False` to avoid verbose error output in production.
+> The database settings should also be configured as mentioned in the Quickstart section.
+
+```bash
+ # `ALLOWED_HOSTS`: Provide a comma-separated list of allowed hosts.
+ ALLOWED_HOSTS=<your_ip>,<www.your-domain.com>
+
+ # `DEBUG`: Set to `True` for development or `False` for production. Default is `True`.
+ DEBUG=False
+ # Database settings
+ # See the "Edit `babyshop_app/.env`" section mentioned in Quickstart.
+```
+
+5. Build an image and run docker to start your app.
+6. Verify the application is running.
+7. Create a superuser account (optional).
+
+```bash
+ docker exec -it <your_container_id> python manage.py createsuperuser
+```
+> [!NOTE]
+>
+> Whenever you make changes to your models, run the following workflow.
+
+```bash
+ # 1. Create migration files
+ docker exec -it <your_container_id> python manage.py makemigrations
+
+ # 2. Apply migrations to the database
+ docker exec -it <your_container_id> python manage.py migrate
 ```
 
 ## Project Structure
@@ -144,58 +205,4 @@ baby-tools-shop/                                  # Repository root
   └── media/                                    # Uploaded media files
     └── products/
     
-```
-
-## Usage
-
-### Configure Your Server
-
-1. Log in to your server
-
-```bash
-ssh -i ~/.ssh/your_key <your_root_name>@<your_ip>
-```
-
-> [!NOTE]
->
-> The commands for steps 2 to 6 are explained in the Quickstart section.
-> These steps are listed here only to show how to configure your server.
-
-2. Clone the Git repository.
-3. Navigate to the main directory.
-4. Set up the environment file.
-
-> [!TIP]
->
-> The environment file should be stored next to the `manage.py` file.
-> The `DEBUG` parameter should be set to `False` to avoid verbose error output in production.
-> The database settings should also be configured as mentioned in the Quickstart section.
-
-```bash
- # `ALLOWED_HOSTS`: Provide a comma-separated list of allowed hosts.
- ALLOWED_HOSTS=<your_ip>,<www.your-domain.com>
-
- # `DEBUG`: Set to `True` for development or `False` for production. Default is `True`.
- DEBUG=False
- # Database settings
- # See the "Edit `babyshop_app/.env`" section mentioned in Quickstart.
-```
-
-5. Build an image and run docker to start your app.
-6. Verify the application is running.
-7. Create a superuser account (optional).
-
-```bash
- docker exec -it <your_container_id> python manage.py createsuperuser
-```
-> [!NOTE]
->
-> Whenever you make changes to your models, run the following workflow.
-
-```bash
- # 1. Create migration files
- docker exec -it <your_container_id> python manage.py makemigrations
-
- # 2. Apply migrations to the database
- docker exec -it <your_container_id> python manage.py migrate
 ```
